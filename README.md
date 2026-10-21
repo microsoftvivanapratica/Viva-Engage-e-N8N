@@ -1,197 +1,74 @@
-# Viva Engage Weekly Summary with n8n and Microsoft Teams
-
-> Automatically collect Viva Engage (Yammer) discussions, generate a weekly digest, and publish it directly to Microsoft Teams using n8n.
-
-## 📌 Overview
-
-This project demonstrates how to build a real-world Microsoft 365 automation using:
-
-- Microsoft Entra ID
-- Viva Engage (Yammer API)
-- n8n
-- Microsoft Teams
-- OAuth 2.0
-
-The solution retrieves Viva Engage messages, processes the content, generates a concise summary, and automatically posts the results into a Microsoft Teams channel.
-
-This project can be used as:
-
-- A portfolio project
-- Internal communications automation
-- Employee engagement monitoring
-- Viva Engage analytics foundation
-- Future AI-powered insights solution
-
----
-
-# 🏗 Solution Architecture
-
-```text
-Viva Engage
-     │
-     ▼
-Yammer API
-     │
-     ▼
-n8n Workflow
-     │
-     ▼
-Message Processing
-     │
-     ▼
-Weekly Summary
-     │
-     ▼
+        ▼
 Microsoft Teams
+(Post Summary)
 ```
 
 ---
 
-# 🚀 Features
-
-✅ Connect to Viva Engage using OAuth2
-
-✅ Retrieve messages from Viva Engage communities
-
-✅ Filter messages from the last:
-
-- 24 hours
-- 7 days
-
-✅ Remove empty posts
-
-✅ Remove URLs and unnecessary content
-
-✅ Generate a formatted summary
-
-✅ Publish automatically to Microsoft Teams
-
-✅ Fully automated using n8n
-
----
-
-# 🛠 Technologies Used
-
-- Microsoft Entra ID
-- Viva Engage (Yammer API)
-- Microsoft Teams
-- n8n
-- OAuth 2.0
-- JavaScript
-
----
-
-# 📋 Prerequisites
-
-Before starting, ensure you have:
-
-- Microsoft 365 Tenant
-- Viva Engage enabled
-- Microsoft Teams enabled
-- Azure Subscription (optional)
-- n8n instance running
-- Global Administrator permissions (recommended)
-
----
-
-# 🔐 Step 1 - Create an App Registration
-
-Navigate to:
+# 📂 Recommended Repository Structure
 
 ```text
-Microsoft Entra ID
-→ App Registrations
-→ New Registration
-```
-
-Name:
-
-```text
-n8n Viva Engage Integration
-```
-
-Supported account type:
-
-```text
-Accounts in this organizational directory only
+viva-engage-weekly-summary
+│
+├── README.md
+│
+├── docs
+│   ├── app-registration.md
+│   ├── oauth-configuration.md
+│   └── teams-integration.md
+│
+├── code
+│   ├── daily-summary.js
+│   └── weekly-summary.js
+│
+├── images
+│   ├── architecture.png
+│   ├── workflow.png
+│   └── teams-result.png
+│
+└── LICENSE
 ```
 
 ---
 
-# 🔑 Step 2 - Create a Client Secret
+# 🔮 Future Enhancements
 
-Navigate to:
-
-```text
-Certificates & Secrets
-→ New Client Secret
-```
-
-Copy the generated:
-
-```text
-Client Secret Value
-```
-
-⚠️ Store it securely.
+- Azure OpenAI Integration
+- Sentiment Analysis
+- Topic Extraction
+- Employee Feedback Categorization
+- Risk Identification
+- Engagement Scoring
+- Power BI Dashboard
+- Viva Engage Community Analytics
+- Executive Summaries
+- Adaptive Cards for Teams
 
 ---
 
-# 🌐 Step 3 - Configure Redirect URI
+# 🎯 Business Value
 
-Navigate to:
+This solution helps organizations:
 
-```text
-Authentication
-```
-
-Add:
-
-```text
-Web
-```
-
-Redirect URL:
-
-```text
-https://oauth.n8n.cloud/oauth2/callback
-```
-
-For self-hosted n8n:
-
-```text
-https://YOUR-N8N-DOMAIN/rest/oauth2-credential/callback
-```
+- Increase visibility into employee discussions
+- Reduce manual monitoring effort
+- Improve internal communications
+- Promote knowledge sharing
+- Surface relevant discussions automatically
+- Create an employee experience analytics foundation
 
 ---
 
-# 🔒 Step 4 - Configure API Permissions
+# 📜 License
 
-Navigate to:
+MIT License
 
-```text
-API Permissions
-→ Add Permission
-```
+---
 
-Add permissions for:
+# 👤 Author
 
-## Viva Engage / Yammer
+**Milena Almeida**
 
-```text
-Community.Read.All
-```
+Microsoft 365 | Viva | Teams | Azure | Automation | AI Enthusiast
 
-```text
-EngagementConversation.Read.All
-```
-
-```text
-engage_access
-```
-
-```text
-access_as_user
-```
-
-After adding 
+Built with ❤️ using Microsoft technologies and n8n.
