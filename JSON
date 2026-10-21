@@ -1,0 +1,81 @@
+/**
+ * Viva Engage Weekly Summary
+ * Description:
+ * Processa mensagens do Viva Engage/Yammer e gera
+ * um resumo para publicação no Microsoft Teams.
+ */
+
+const mensagens = $json.messages || [];
+
+// Definições de período
+const agora = new Date();
+
+const umDiaAtras = new Date();
+umDiaAtras.setDate(agora.getDate() - 1);
+
+const umaSemanaAtras = new Date();
+umaSemanaAtras.setDate(agora.getDate() - 7);
+
+// Escolha do filtro:
+// "day" = últimas 24 horas
+// "week" = últimos 7 dias
+
+const filtro = "week";
+
+// Função para validar período
+function dentroDoPeriodo(dataMensagem) {
+    const data = new Date(dataMensagem);
+
+    if (filtro === "day") {
+        return data >= umDiaAtras;
+    }
+
+    if (filtro === "week") {
+        return data >= umaSemanaAtras;
+    }
+
+    return true;
+}
+
+// Filtra mensagens válidas
+const mensagensFiltradas = mensagens
+    .filter(m => m.body?.plain)
+    .filter(m => m.body.plain.trim() !== '')
+    .filter(m => dentroDoPeriodo(m.created_at));
+
+// Gera os destaques
+const publicacoes = mensagensFiltradas.map((m, index) => {
+
+    const textoLimpo = m.body.plain
+        .replace(/https?:\/\/\S+/g, '')
+        .replace(/\n/g, ' ')
+        .trim();
+
+    return {
+        numero: index + 1,
+        data: m.created_at,
+        curtidas: m.liked_by?.count || 0,
+        mensagem: textoLimpo
+    };
+});
+
+// Montagem do resumo
+const resumo = `
+📊 RESUMO ${filtro === 'day' ? 'DIÁRIO' : 'SEMANAL'} VIVA ENGAGE
+
+📌 Total de mensagens analisadas: ${publicacoes.length}
+
+📝 Destaques:
+
+${publicacoes.map(p =>
+`${p.numero}. ${p.mensagem}
+👍 Curtidas: ${p.curtidas}`
+).join('\n\n')}
+`;
+
+return [{
+    periodo: filtro,
+    totalMensagens: publicacoes.length,
+    publicacoes,
+    resumo
+}];
